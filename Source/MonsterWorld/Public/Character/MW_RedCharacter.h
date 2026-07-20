@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "PaperCharacter.h"
 #include "MW_RedCharacter.generated.h"
 
+class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
 /**
@@ -20,6 +22,7 @@ public:
 	
 	AMW_RedCharacter();
 	
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 protected:
 	
@@ -28,6 +31,14 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<UCameraComponent> CameraComponent;
+	
+	UPROPERTY(EditDefaultsOnly,Category= "Inputs")
+	TObjectPtr<UInputAction> MoveAction;
+	
+	UFUNCTION()
+	void Move(const FInputActionValue& InputValue);
+	
+	
 	
 	
 };
