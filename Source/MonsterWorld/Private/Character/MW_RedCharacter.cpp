@@ -5,9 +5,11 @@
 
 #include "EnhancedInputComponent.h"
 #include "PaperFlipbookComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "UI/MW_PlayerHUD.h"
 
 AMW_RedCharacter::AMW_RedCharacter()
 {
@@ -19,6 +21,18 @@ AMW_RedCharacter::AMW_RedCharacter()
 	CameraComponent->SetProjectionMode(ECameraProjectionMode::Orthographic);
 	CameraComponent->OrthoWidth = 1000;
 	
+}
+
+void AMW_RedCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	if (IsValid(PlayerHUDClass))
+	{
+		HUDReference = CreateWidget<UMW_PlayerHUD>(GetWorld(), PlayerHUDClass);
+		HUDReference->AddToViewport();
+	}
+
 }
 
 void AMW_RedCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

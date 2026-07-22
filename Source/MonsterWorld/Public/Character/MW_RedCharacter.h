@@ -7,6 +7,7 @@
 #include "PaperCharacter.h"
 #include "MW_RedCharacter.generated.h"
 
+class UMW_PlayerHUD;
 class UPaperFlipbook;
 class UInputAction;
 class UCameraComponent;
@@ -23,11 +24,19 @@ public:
 	
 	AMW_RedCharacter();
 	
+	virtual void BeginPlay() override;
+	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 	UFUNCTION(BlueprintCallable)
 	FVector2D GetMoveAxis() const { return MoveAxis; };
 protected:
+	
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UMW_PlayerHUD>  PlayerHUDClass;
+	
+	UPROPERTY()
+	TObjectPtr<UMW_PlayerHUD> HUDReference;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	TObjectPtr<USpringArmComponent> SpringArm;
@@ -65,6 +74,8 @@ protected:
 	UPROPERTY()
 	FVector2D MoveAxis;
 	
+
+	
 	UFUNCTION()
 	void Move(const FInputActionValue& InputValue);
 	
@@ -73,6 +84,8 @@ protected:
 	
 	UFUNCTION()
 	void SetFlipBookAnimation(const bool bTransitionToIdle = false) const;
+	
+	
 	
 	
 	
