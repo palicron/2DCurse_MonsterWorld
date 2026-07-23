@@ -7,6 +7,8 @@
 #include "PaperCharacter.h"
 #include "MW_RedCharacter.generated.h"
 
+class AMW_PickUP;
+class UBoxComponent;
 class UMW_PlayerHUD;
 class UPaperFlipbook;
 class UInputAction;
@@ -25,7 +27,8 @@ public:
 	AMW_RedCharacter();
 	
 	virtual void BeginPlay() override;
-	
+
+
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
 	UFUNCTION(BlueprintCallable)
@@ -71,10 +74,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category= "Inputs")
 	TObjectPtr<UInputAction> MoveAction;
 	
+	UPROPERTY(EditDefaultsOnly,Category= "Inputs")
+	TObjectPtr<UInputAction> InteractAction;
+	
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category= "Collision")
+	TObjectPtr<UBoxComponent> InteractionDetector;
+	
 	UPROPERTY()
 	FVector2D MoveAxis;
 	
-
+	
+	TWeakObjectPtr<AActor> InteractingActor;
 	
 	UFUNCTION()
 	void Move(const FInputActionValue& InputValue);
@@ -85,9 +96,13 @@ protected:
 	UFUNCTION()
 	void SetFlipBookAnimation(const bool bTransitionToIdle = false) const;
 	
+	void Interact(const FInputActionValue& InputActionValue);
 	
+	UFUNCTION()
+	void OnActorBeginOverlap( UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 	
-	
+	UFUNCTION()
+	void OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
 	
 };
