@@ -37,7 +37,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category= "Collision")
 	TObjectPtr<UBoxComponent> InteractionDetector;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere)
 	FMW_MessageInfo ItemMessage;
 	
 	UFUNCTION()

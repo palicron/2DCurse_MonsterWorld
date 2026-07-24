@@ -91,6 +91,10 @@ void AMW_RedCharacter::Interact(const FInputActionValue& InputActionValue)
 	if (InteractingActor.IsValid() && InteractingActor->Implements<UMW_Interactable>())
 	{
 		FMW_MessageInfo Info = IMW_Interactable::Execute_Interact(InteractingActor.Get());
+		if (HUDReference)
+		{
+			HUDReference->BP_SetItemText(Info);
+		}
 	}
 }
 

@@ -8,10 +8,10 @@ struct FMW_MessageInfo
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	FString Name;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	int32 ItemID;
 
 	FMW_MessageInfo() : Name("Item"), ItemID(0) {}
