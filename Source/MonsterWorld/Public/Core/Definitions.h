@@ -13,8 +13,11 @@ struct FMW_MessageInfo
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	int32 ItemID;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	uint8 bIsNPC : 1;
 
-	FMW_MessageInfo() : Name("Item"), ItemID(0) {}
+	FMW_MessageInfo() : Name("Item"), ItemID(0) , bIsNPC(false){}
 };
 
 
